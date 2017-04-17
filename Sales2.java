@@ -106,19 +106,17 @@ public class Sales2 {
 				if (br != null) {
 				br.close ();
 				fr.close();
-				} else {
-					//System.out.println("予期せぬエラーが発生しました");
 				}
 			} catch (IOException e) {
 				// TODO 自動生成された catch ブロック
 			}
 		}
 
-		if (!fileOut (args[0], "branch.out", branch, branchMoney)) {
+		if (!fileOut(args[0], "branch.out", branch, branchMoney)) {
 			System.out.println("予期せぬエラーが発生しました");
 			return;
 		}
-		if (!fileOut (args[0], "commodity.out", commodity, commodityMoney)) {
+		if (!fileOut(args[0], "commodity.out", commodity, commodityMoney)) {
 			System.out.println("予期せぬエラーが発生しました");
 			return;
 		}
