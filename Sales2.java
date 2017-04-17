@@ -142,11 +142,12 @@ public class Sales2 {
 				bw.write(s.getKey() + "," + nameMap.get(s.getKey()) + "," + moneyMap.get(s.getKey()) + rn);
 			}
 		} catch (Exception e) {
-			System.out.println("予期せぬエラーが発生しました");
 			return false;
 		} finally{
 			try {
-				bw.close () ;
+				if (bw != null) {
+					bw.close () ;
+				}
 			} catch (IOException e) {
 				// TODO 自動生成された catch ブロック
 			}
