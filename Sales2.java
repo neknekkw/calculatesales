@@ -41,14 +41,11 @@ public class Sales2 {
 		try {
 			File file3 = new File (args[0]);
 			File [] f = file3.listFiles();
-
-
 			for (int i = 0; i < f.length; i++) {
 				if (f[i].getName().matches("^[0-9]{8}.rcd$" ) && f[i].isFile()) {
 					salesList.add(f[i]);
 				}
 			}
-
 			for (int i = 0; i <salesList.size(); i++) {
 				String FileNumber = salesList.get(i).getName();
 				String [] fileNumbers = FileNumber.split("[.]",0);
@@ -73,15 +70,15 @@ public class Sales2 {
 					dataList.add(str);
 				}
 				if (dataList.size() != 3) {
-					System.out.println("<" + f[i].getName () + ">のフォーマットが不正です");
+					System.out.println( f[i].getName () + "のフォーマットが不正です");
 					return;
 				}
 				if (!branch.containsKey (dataList.get(0))) {
-					System.out.println("<" + f[i].getName() + ">の支店コードが不正です");
+					System.out.println( f[i].getName() + "の支店コードが不正です");
 					return;
 				}
 				if (!commodity.containsKey (dataList.get(1))) {
-					System.out.println("<" + f[i].getName() + ">の商品コードが不正です");
+					System.out.println( f[i].getName() + "の商品コードが不正です");
 					return;
 				}
 
@@ -106,8 +103,12 @@ public class Sales2 {
 			return;
 		}finally{
 			try {
+				if (br != null) {
 				br.close ();
 				fr.close();
+				} else {
+					//System.out.println("予期せぬエラーが発生しました");
+				}
 			} catch (IOException e) {
 				// TODO 自動生成された catch ブロック
 			}
@@ -122,6 +123,7 @@ public class Sales2 {
 			return;
 		}
 	}
+
 
 	public static boolean fileOut (String dirPath, String fileName, HashMap< String, String > nameMap, HashMap< String, Long > moneyMap) {
 
