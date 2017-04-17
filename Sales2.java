@@ -143,8 +143,6 @@ public class Sales2 {
 			for (Entry <String, Long> s : entries) {
 				bw.write(s.getKey() + "," + nameMap.get(s.getKey()) + "," + moneyMap.get(s.getKey()) + rn);
 			}
-
-			bw.close () ;
 		} catch (Exception e) {
 			System.out.println("予期せぬエラーが発生しました");
 			return false;
