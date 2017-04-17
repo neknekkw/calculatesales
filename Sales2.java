@@ -19,12 +19,12 @@ public class Sales2 {
 		HashMap< String, Long > commodityMoney = new HashMap < String, Long > () ;
 		HashMap< String, String > commodity = new HashMap < String, String > () ;
 
-		
+
 		if (args.length != 1 ) {
 			System.out.println("予期せぬエラーが発生しました");
 			return;
 		}
-		
+
 		//支店定義ファイル
 		if (!fileRead (args, "branch.lst", "支店", "^[0-9]{3}$", "支店", branch, branchMoney)){
 			return;
@@ -32,7 +32,7 @@ public class Sales2 {
 		if (!fileRead (args, "commodity.lst", "商品", "^[0-9a-zA-Z]{8}$", "商品", commodity, commodityMoney)) {
 			return;
 		}
-//
+		//
 		//集計
 		ArrayList <File> salesList = new ArrayList <File> ();
 
@@ -69,8 +69,8 @@ public class Sales2 {
 				br = new BufferedReader (fr) ;
 				while ((str = br.readLine()) != null) {
 
-				//dataListにstrのデータを格納
-				dataList.add(str);
+					//dataListにstrのデータを格納
+					dataList.add(str);
 				}
 				if (dataList.size() != 3) {
 					System.out.println("<" + f[i] + ">のフォーマットが不正です");
@@ -101,19 +101,17 @@ public class Sales2 {
 				branchMoney.put(dataList.get(0), branchTotal);
 				commodityMoney.put(dataList.get(1), commodityTotal2);
 			}
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("予期せぬエラーが発生しました");
-				return;
-			}finally{
-				try {
-					br.close ();
-					fr.close();
-				} catch (IOException e) {
-					// TODO 自動生成された catch ブロック
-					e.printStackTrace();
-				}
+		} catch (Exception e) {
+			System.out.println("予期せぬエラーが発生しました");
+			return;
+		}finally{
+			try {
+				br.close ();
+				fr.close();
+			} catch (IOException e) {
+				// TODO 自動生成された catch ブロック
 			}
+		}
 
 		if (!fileOut (args[0], "branch.out", branch, branchMoney)) {
 			System.out.println("予期せぬエラーが発生しました");
@@ -153,7 +151,6 @@ public class Sales2 {
 				bw.close () ;
 			} catch (IOException e) {
 				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
 			}
 		}
 		return true;
@@ -161,38 +158,39 @@ public class Sales2 {
 
 	public static boolean fileRead (String[] dirPath, String fileName, String definitionError,String condition, String formatError, HashMap< String, String > nameMap, HashMap< String, Long > moneyMap) {
 		BufferedReader br1 = null;
-		try {
-			File file1 = new File (dirPath[0], fileName);
-			if (!file1.exists ()) {
-				System.out.println(definitionError + "定義ファイルが存在しません");
-				return false;
-			}
-			FileReader fr1 = new FileReader (file1);
-			br1 = new BufferedReader (fr1) ;
-
-			String str ;
-			while (( str = br1.readLine()) != null) {
-				String [] branchNumbers = str.split(",");
-				String branchNumber = branchNumbers [0] ;
-				if (!branchNumber.matches (condition) || branchNumbers.length != 2) {
-					System.out.println(formatError + "定義ファイルのフォーマットが不正です");
-					return false;
-				}
-				nameMap.put(branchNumbers[0], branchNumbers[1]);
-				moneyMap.put(branchNumbers[0], 0L);
-			}
-		} catch (IOException e) {
-			System.out.println("予期せぬエラーが発生しました");
+		File file1 = new File (dirPath[0], fileName);
+		if (!file1.exists ()) {
+			System.out.println(definitionError + "定義ファイルが存在しません");
 			return false;
-		}finally{
+		} else {
 			try {
-				br1.close () ;
-			} catch (IOException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
-			}
-		}
-		return true;
-	}
 
+				FileReader fr1 = new FileReader (file1);
+				br1 = new BufferedReader (fr1) ;
+
+				String str ;
+				while (( str = br1.readLine()) != null) {
+					String [] branchNumbers = str.split(",");
+					String branchNumber = branchNumbers [0] ;
+					if (!branchNumber.matches (condition) || branchNumbers.length != 2) {
+						System.out.println(formatError + "定義ファイルのフォーマットが不正です");
+						return false;
+					}
+					nameMap.put(branchNumbers[0], branchNumbers[1]);
+					moneyMap.put(branchNumbers[0], 0L);
+				}
+			} catch (IOException e) {
+				System.out.println("予期せぬエラーが発生しました");
+				return false;
+			}finally{
+				try {
+					br1.close () ;
+				} catch (IOException e) {
+					// TODO 自動生成された catch ブロック
+				}
+			}
+			return true;
+		}
+
+	}
 }
