@@ -26,10 +26,10 @@ public class Sales2 {
 		}
 
 		//支店定義ファイル
-		if (!fileRead (args, "branch.lst", "支店", "^[0-9]{3}$", "支店", branch, branchMoney)){
+		if (!fileRead (args[0], "branch.lst", "支店", "^[0-9]{3}$", "支店", branch, branchMoney)){
 			return;
 		}
-		if (!fileRead (args, "commodity.lst", "商品", "^[0-9a-zA-Z]{8}$", "商品", commodity, commodityMoney)) {
+		if (!fileRead (args[0], "commodity.lst", "商品", "^[0-9a-zA-Z]{8}$", "商品", commodity, commodityMoney)) {
 			return;
 		}
 		//
@@ -154,9 +154,9 @@ public class Sales2 {
 		return true;
 	}
 
-	public static boolean fileRead (String[] dirPath, String fileName, String definitionError,String condition, String formatError, HashMap< String, String > nameMap, HashMap< String, Long > moneyMap) {
+	public static boolean fileRead (String dirPath, String fileName, String definitionError,String condition, String formatError, HashMap< String, String > nameMap, HashMap< String, Long > moneyMap) {
 		BufferedReader br1 = null;
-		File file1 = new File (dirPath[0], fileName);
+		File file1 = new File (dirPath, fileName);
 		if (!file1.exists ()) {
 			System.out.println(definitionError + "定義ファイルが存在しません");
 			return false;
