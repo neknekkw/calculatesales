@@ -55,7 +55,7 @@ public class Sales2 {
 				//int number = Integer.parseInt(fileNumbers[0]);
 				Long number = Long.parseLong(fileNumbers[0]);
 				if (number - i != 1) {
-					System.out.println ("売上ファイルが連番になっていません");
+					System.out.println ("売上ファイル名が連番になっていません");
 					return;
 				}
 			}
@@ -73,15 +73,15 @@ public class Sales2 {
 					dataList.add(str);
 				}
 				if (dataList.size() != 3) {
-					System.out.println("<" + f[i] + ">のフォーマットが不正です");
+					System.out.println("<" + f[i].getName () + ">のフォーマットが不正です");
 					return;
 				}
 				if (!branch.containsKey (dataList.get(0))) {
-					System.out.println("<" + f[i] + ">の支店コードが不正です");
+					System.out.println("<" + f[i].getName() + ">の支店コードが不正です");
 					return;
 				}
 				if (!commodity.containsKey (dataList.get(1))) {
-					System.out.println("<" + f[i] + ">の商品コードが不正です");
+					System.out.println("<" + f[i].getName() + ">の商品コードが不正です");
 					return;
 				}
 
@@ -191,6 +191,5 @@ public class Sales2 {
 			}
 			return true;
 		}
-
 	}
 }
