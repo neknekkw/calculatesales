@@ -14,6 +14,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 public class CalculateSales {
 	public static void main (String [] args) {
+		
+		if (args.length != 1 ) {
+			System.out.println("予期せぬエラーが発生しました");
+			return;
+		}
 		String fileReadName1 = args[0] + File.separator + "branch.lst";
 		String fileReadName2 = args[0] + File.separator + "commodity.lst";
 		HashMap< String, String > branch = new HashMap < String, String > () ;
@@ -21,12 +26,7 @@ public class CalculateSales {
 		HashMap< String, Long > commodityMoney = new HashMap < String, Long > () ;
 		HashMap< String, String > commodity = new HashMap < String, String > () ;
 		
-
-		if (args.length != 1 ) {
-			System.out.println("予期せぬエラーが発生しました");
-			return;
-		}
-
+		
 		//支店定義ファイル
 		if (!fileListRead (fileReadName1, "支店", "^[0-9]{3}$", branch, branchMoney)){
 			return;
